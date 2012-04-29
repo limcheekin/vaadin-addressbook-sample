@@ -1,7 +1,6 @@
 package com.vobject.vaadin.addressbook.sample;
 
 import com.vaadin.Application;
-import com.vaadin.data.Container;
 import com.vaadin.data.Item;
 import com.vaadin.data.Property;
 import com.vaadin.data.Property.ValueChangeEvent;
@@ -47,11 +46,11 @@ public class VaadinAddressBookApplication extends Application implements
 	}
 
 	private void createMainLayout() {
-		setTheme("contacts");
+		// setTheme("contacts");
 		Window mainWindow = new Window("Vaadin Address Book Sample Application");
 		setMainWindow(mainWindow);
 		VerticalLayout layout = new VerticalLayout();
-		layout.setSizeFull();
+		layout.setHeight("500");
 
 		layout.addComponent(createToolbar());
 		layout.addComponent(horizontalSplit);
