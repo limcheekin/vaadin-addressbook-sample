@@ -20,16 +20,15 @@ public class PersonList extends Table {
 		setSizeFull();
 		// customize email column to have mailto: links using column generator
 		addGeneratedColumn("email", new ColumnGenerator() {
-			public Component generateCell(Table source, Object itemId,
-					Object columnId) {
-				Person p = (Person) itemId;
+			public Component generateCell(Table source, Object itemId, Object columnId) {
+				String email = (String) getContainerProperty(itemId, "email").getValue();
 				Link l = new Link();
-				l.setResource(new ExternalResource("mailto:" + p.getEmail()));
-				l.setCaption(p.getEmail());
+				l.setResource(new ExternalResource("mailto:" + email));
+				l.setCaption(email);
 				return l;
 			}
 		});
-		setContainerDataSource(app.getPersonDataSource());
+		setContainerDataSource(app.getDataSource());
 		setVisibleColumns(PersonContainer.NATURAL_COL_ORDER);
 		setColumnHeaders(PersonContainer.COL_HEADERS_ENGLISH);
 		/*

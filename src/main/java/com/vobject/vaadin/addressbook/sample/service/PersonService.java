@@ -1,6 +1,9 @@
 package com.vobject.vaadin.addressbook.sample.service;
 
 import com.vobject.vaadin.addressbook.sample.domain.Person;
+import com.vobject.vaadin.addressbook.sample.ui.PersonReference;
+import com.vobject.vaadin.addressbook.sample.ui.QueryMetaData;
+
 import java.util.List;
 
 public interface PersonService {
@@ -24,5 +27,9 @@ public interface PersonService {
 
 
 	public abstract Person updatePerson(Person person);
+
+
+	public abstract List<Person> findPersonEntries(QueryMetaData queryMetaData);
+
 
 }

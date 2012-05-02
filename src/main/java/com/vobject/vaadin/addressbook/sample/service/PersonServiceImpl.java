@@ -2,6 +2,9 @@ package com.vobject.vaadin.addressbook.sample.service;
 
 import com.vobject.vaadin.addressbook.sample.domain.Person;
 import com.vobject.vaadin.addressbook.sample.repository.PersonRepository;
+import com.vobject.vaadin.addressbook.sample.ui.PersonReference;
+import com.vobject.vaadin.addressbook.sample.ui.QueryMetaData;
+
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,4 +45,12 @@ public class PersonServiceImpl implements PersonService {
 	public Person updatePerson(Person person) {
         return personRepository.save(person);
     }
+
+	public List<Person> findPersonEntries(QueryMetaData queryMetaData) {
+		if (queryMetaData.getPropertyName() == null) {
+			return findAllPeople();
+		}
+		return null;
+	}
+
 }

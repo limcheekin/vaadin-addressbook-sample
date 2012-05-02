@@ -46,10 +46,10 @@ public class PersonForm extends Form implements ClickListener {
 		cities.addItem("");
 
 		/* Populate cities select using the cities in the data container */
-		PersonContainer ds = app.getPersonDataSource();
-		for (Iterator<Person> it = ds.getItemIds().iterator(); it.hasNext();) {
-			String city = it.next().getCity();
-			cities.addItem(city);
+		PersonReferenceContainer ds = app.getDataSource();
+		for (PersonReference pf : ds.getItems()) {
+		    String city = (String) pf.getItemProperty("city").getValue();
+		    cities.addItem(city);
 		}
 
 		/*
@@ -131,18 +131,12 @@ public class PersonForm extends Form implements ClickListener {
 			}
 
 			commit();
-			if (newContactMode) {
-				/* We need to add the new person to the container */
-				Item addedItem = app.getPersonDataSource().addItem(newPerson);
-				/*
-				 * We must update the form to use the Item from our datasource
-				 * as we are now in edit mode
-				 */
-				setItemDataSource(addedItem);
-
-				newContactMode = false;
-			}
+			app.getPersonService().savePerson(newPerson);
+			setItemDataSource(new BeanItem(newPerson));
+			app.getDataSource().refresh();
+			newContactMode = false;
 			setReadOnly(true);
+
 		} else if (source == cancel) {
 			if (newContactMode) {
 				newContactMode = false;
@@ -163,4 +157,12 @@ public class PersonForm extends Form implements ClickListener {
 		newContactMode = true;
 		setReadOnly(false);
 	}
+	
+	public void editContact(Person person) {
+		newPerson = person;
+		setItemDataSource(new BeanItem(person));
+		newContactMode = false;
+		setReadOnly(true);
+	}
+	
 }

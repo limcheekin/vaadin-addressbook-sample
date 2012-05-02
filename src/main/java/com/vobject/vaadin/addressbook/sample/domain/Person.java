@@ -17,30 +17,30 @@ public class Person {
 
 	@NotNull
 	@Size(min = 3)
-	private String firstName;
+	private String firstName = "";
 
 	@NotNull
 	@Size(min = 3)
-	private String lastName;
+	private String lastName = "";
 
 	@NotNull
 	@Size(min = 3)
 	// @Pattern(regexp =
 	// "^[_A-Za-z0-9-]+(\\\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\\\.[A-Za-z0-9]+)*(\\\\.[A-Za-z]{2,})$")
-	private String email;
+	private String email = "";
 
 	// @Pattern(regexp =
 	// "^((\\+)?[1-9]{1,2})?([-\\s\\.])?((\\(\\d{1,4}\\))|\\d{1,4})(([-\\s\\.])?[0-9]{1,12}){1,2}$")
-	private String phoneNumber;
+	private String phoneNumber = "";
 
 	@Size(max = 80)
-	private String streetAddress;
+	private String streetAddress = "";
 
 	@Max(99999L)
-	private Integer postalCode;
+	private Integer postalCode = 99999;
 
 	@Size(max = 20)
-	private String city;
+	private String city = "";
 
 	public String toString() {
 		return ReflectionToStringBuilder.toString(this,

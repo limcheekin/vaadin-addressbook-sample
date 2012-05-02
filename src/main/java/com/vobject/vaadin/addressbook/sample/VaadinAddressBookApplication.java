@@ -1,7 +1,9 @@
 package com.vobject.vaadin.addressbook.sample;
 
-import com.vaadin.Application;
-import com.vaadin.data.Container;
+import org.dellroad.stuff.vaadin.SpringContextApplication;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.context.ConfigurableWebApplicationContext;
+
 import com.vaadin.data.Item;
 import com.vaadin.data.Property;
 import com.vaadin.data.Property.ValueChangeEvent;
@@ -11,17 +13,21 @@ import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.*;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Window.Notification;
+import com.vobject.vaadin.addressbook.sample.domain.Person;
+import com.vobject.vaadin.addressbook.sample.service.PersonService;
 import com.vobject.vaadin.addressbook.sample.ui.HelpWindow;
 import com.vobject.vaadin.addressbook.sample.ui.ListView;
 import com.vobject.vaadin.addressbook.sample.ui.NavigationTree;
 import com.vobject.vaadin.addressbook.sample.ui.PersonContainer;
 import com.vobject.vaadin.addressbook.sample.ui.PersonForm;
 import com.vobject.vaadin.addressbook.sample.ui.PersonList;
+import com.vobject.vaadin.addressbook.sample.ui.PersonReferenceContainer;
+import com.vobject.vaadin.addressbook.sample.ui.QueryMetaData;
 import com.vobject.vaadin.addressbook.sample.ui.SearchFilter;
 import com.vobject.vaadin.addressbook.sample.ui.SearchView;
 import com.vobject.vaadin.addressbook.sample.ui.SharingOptions;
 
-public class VaadinAddressBookApplication extends Application implements
+public class VaadinAddressBookApplication extends SpringContextApplication implements
 		Button.ClickListener, Property.ValueChangeListener, ItemClickListener {
 	private Button newContact = new Button("Add contact");
 	private Button search = new Button("Search");
@@ -33,7 +39,10 @@ public class VaadinAddressBookApplication extends Application implements
 	private PersonList personList = null;
 	private PersonForm personForm = null;	
 	private HelpWindow helpWindow = null;
-	private PersonContainer personDataSource = PersonContainer.createWithTestData();
+	@Autowired
+  PersonService personService;
+	private PersonReferenceContainer personDataSource; 
+	// private PersonContainer personDataSource = PersonContainer.createWithTestData();
 
 	
 	/**
@@ -41,10 +50,6 @@ public class VaadinAddressBookApplication extends Application implements
 	 */
 	private static final long serialVersionUID = 3591316946318123623L;
 
-	@Override
-	public void init() {
-		createMainLayout();
-	}
 
 	private void createMainLayout() {
 		setTheme("contacts");
@@ -144,17 +149,19 @@ public class VaadinAddressBookApplication extends Application implements
 		horizontalSplit.setSecondComponent(c);
 	}
 
-	public PersonContainer getPersonDataSource() {
+	public PersonReferenceContainer getDataSource() {
 		return personDataSource;
 	}
+	
+	public PersonService getPersonService() {
+		return personService;
+	}	
 
 	public void valueChange(ValueChangeEvent event) {
 		Property property = event.getProperty();
 		if (property == personList) {
-			Item item = personList.getItem(personList.getValue());
-			if (item != personForm.getItemDataSource()) {
-				personForm.setItemDataSource(item);
-			}
+			Person person = personService.findPerson((Long) personList.getValue());
+			personForm.editContact(person);
 		}
 	}
 
@@ -176,8 +183,7 @@ public class VaadinAddressBookApplication extends Application implements
 			Object itemId = event.getItemId();
 			if (itemId != null) {
 				if (NavigationTree.SHOW_ALL.equals(itemId)) {
-					// clear previous filters
-					getPersonDataSource().removeAllContainerFilters();
+					getDataSource().refresh(PersonReferenceContainer.defaultQueryMetaData);
 					showListView();
 				} else if (NavigationTree.SEARCH.equals(itemId)) {
 					showSearchView();
@@ -209,21 +215,21 @@ public class VaadinAddressBookApplication extends Application implements
 	}
 
 	public void search(SearchFilter searchFilter) {
-		// clear previous filters
-		getPersonDataSource().removeAllContainerFilters();
-		// filter contacts with given filter
-		getPersonDataSource().addContainerFilter(searchFilter.getPropertyId(),
-				searchFilter.getTerm(), true, false);
+		QueryMetaData qmd = new QueryMetaData(
+				(String) searchFilter.getPropertyId(), searchFilter.getTerm(),
+				getDataSource().getQueryMetaData().getOrderBy(),
+				getDataSource().getQueryMetaData().getAscending());
+		getDataSource().refresh(qmd);
 		showListView();
 		showNotification(searchFilter);
 	}
 
 	private void showNotification(SearchFilter searchFilter) {
-		if (getPersonDataSource().size() > 0) {
+		if (getDataSource().size() > 0) {
 			getMainWindow().showNotification(
 					"Searched for " + searchFilter.getPropertyId() + "=*"
 							+ searchFilter.getTerm() + "*, found "
-							+ getPersonDataSource().size() + " item(s).",
+							+ getDataSource().size() + " item(s).",
 					Notification.TYPE_TRAY_NOTIFICATION);
 		} else {
 			getMainWindow().showNotification(
@@ -231,5 +237,12 @@ public class VaadinAddressBookApplication extends Application implements
 							+ searchFilter.getTerm() + "*, person not found.",
 					Notification.TYPE_TRAY_NOTIFICATION);
 		}
+	}
+
+	@Override
+	protected void initSpringApplication(ConfigurableWebApplicationContext context) {
+		personDataSource = new PersonReferenceContainer(personService);
+		getDataSource().refresh();
+		createMainLayout();
 	}
 }
