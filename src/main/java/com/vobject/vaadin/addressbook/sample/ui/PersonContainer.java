@@ -1,9 +1,10 @@
-package com.vobject.vaadin.addressbook.sample.data;
+package com.vobject.vaadin.addressbook.sample.ui;
 
 import java.io.Serializable;
 import java.util.Random;
 
 import com.vaadin.data.util.BeanItemContainer;
+import com.vobject.vaadin.addressbook.sample.domain.Person;
 
 public class PersonContainer extends BeanItemContainer<Person> implements
 		Serializable {

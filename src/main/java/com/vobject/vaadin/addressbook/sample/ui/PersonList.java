@@ -6,8 +6,7 @@ import com.vaadin.ui.Component;
 import com.vaadin.ui.Link;
 import com.vaadin.ui.Table;
 import com.vobject.vaadin.addressbook.sample.VaadinAddressBookApplication;
-import com.vobject.vaadin.addressbook.sample.data.Person;
-import com.vobject.vaadin.addressbook.sample.data.PersonContainer;
+import com.vobject.vaadin.addressbook.sample.domain.Person;
 
 public class PersonList extends Table {
 	/**

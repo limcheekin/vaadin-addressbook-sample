@@ -11,13 +11,13 @@ import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.*;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Window.Notification;
-import com.vobject.vaadin.addressbook.sample.data.PersonContainer;
-import com.vobject.vaadin.addressbook.sample.data.SearchFilter;
 import com.vobject.vaadin.addressbook.sample.ui.HelpWindow;
 import com.vobject.vaadin.addressbook.sample.ui.ListView;
 import com.vobject.vaadin.addressbook.sample.ui.NavigationTree;
+import com.vobject.vaadin.addressbook.sample.ui.PersonContainer;
 import com.vobject.vaadin.addressbook.sample.ui.PersonForm;
 import com.vobject.vaadin.addressbook.sample.ui.PersonList;
+import com.vobject.vaadin.addressbook.sample.ui.SearchFilter;
 import com.vobject.vaadin.addressbook.sample.ui.SearchView;
 import com.vobject.vaadin.addressbook.sample.ui.SharingOptions;
 

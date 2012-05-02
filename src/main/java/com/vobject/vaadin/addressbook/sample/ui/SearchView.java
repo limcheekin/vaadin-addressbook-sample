@@ -9,8 +9,6 @@ import com.vaadin.ui.NativeSelect;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.TextField;
 import com.vobject.vaadin.addressbook.sample.VaadinAddressBookApplication;
-import com.vobject.vaadin.addressbook.sample.data.PersonContainer;
-import com.vobject.vaadin.addressbook.sample.data.SearchFilter;
 
 public class SearchView extends Panel {
 

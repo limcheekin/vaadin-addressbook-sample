@@ -18,8 +18,7 @@ import com.vaadin.ui.Form;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.TextField;
 import com.vobject.vaadin.addressbook.sample.VaadinAddressBookApplication;
-import com.vobject.vaadin.addressbook.sample.data.Person;
-import com.vobject.vaadin.addressbook.sample.data.PersonContainer;
+import com.vobject.vaadin.addressbook.sample.domain.Person;
 
 public class PersonForm extends Form implements ClickListener {
 

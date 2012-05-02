@@ -1,4 +1,4 @@
-package com.vobject.vaadin.addressbook.sample.data;
+package com.vobject.vaadin.addressbook.sample.ui;
 
 import java.io.Serializable;
 
