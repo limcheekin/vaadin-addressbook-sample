@@ -17,6 +17,6 @@ public interface PersonRepository extends JpaSpecificationExecutor<Person>, JpaR
 	List<Person> findByEmailLike(String email, Pageable pageable);
 	List<Person> findByPhoneNumberLike(String phoneNumber, Pageable pageable);
 	List<Person> findByStreetAddressLike(String streetAddress, Pageable pageable);
-	List<Person> findByPostalCode(String postalCode, Pageable pageable);
+	List<Person> findByPostalCode(Integer postalCode, Pageable pageable);
 	List<Person> findByCityLike(String city, Pageable pageable);
 }
