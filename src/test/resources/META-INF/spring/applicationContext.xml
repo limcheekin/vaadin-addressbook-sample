@@ -47,14 +47,8 @@
         <context:exclude-filter expression=".*_Roo_.*" type="regex"/>
         <context:exclude-filter expression="org.springframework.stereotype.Controller" type="annotation"/>
     </context:component-scan>
-		<bean id="liferayDataSource"
-			class="org.springframework.jdbc.datasource.LazyConnectionDataSourceProxy">
-			<property name="targetDataSource">
-				<bean class="com.liferay.portal.kernel.util.InfrastructureUtil"
-					factory-method="getDataSource" />
-			</property>
-		</bean>    
-    <!--  bean class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" id="dataSource">
+
+    <bean class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" id="dataSource">
         <property name="driverClassName" value="${database.driverClassName}"/>
         <property name="url" value="${database.url}"/>
         <property name="username" value="${database.username}"/>
@@ -66,14 +60,14 @@
         <property name="numTestsPerEvictionRun" value="3"/>
         <property name="minEvictableIdleTimeMillis" value="1800000"/>
         <property name="validationQuery" value="SELECT 1"/>
-    </bean -->
+    </bean>
     <bean class="org.springframework.orm.jpa.JpaTransactionManager" id="transactionManager">
         <property name="entityManagerFactory" ref="entityManagerFactory"/>
     </bean>
     <tx:annotation-driven mode="aspectj" transaction-manager="transactionManager"/>
     <bean class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" id="entityManagerFactory">
         <property name="persistenceUnitName" value="persistenceUnit"/>
-        <property name="dataSource" ref="liferayDataSource"/>
+        <property name="dataSource" ref="dataSource"/>
 				 <property name="jpaVendorAdapter">
           <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
         </property>        
