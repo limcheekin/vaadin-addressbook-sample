@@ -252,6 +252,7 @@
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-jpa</artifactId>
 			<version>1.0.2.RELEASE</version>
+			<scope>provided</scope>
 			<exclusions>
 				<exclusion>
 					<groupId>org.springframework</groupId>
@@ -263,7 +264,7 @@
 				</exclusion>				
 				<exclusion>
 					<groupId>org.aspectj</groupId>
-	       <artifactId>aspectjrt</artifactId>
+	                <artifactId>aspectjrt</artifactId>
 				</exclusion>	
 			</exclusions>						
 		</dependency>
@@ -314,6 +315,7 @@
 			<groupId>org.dellroad</groupId>
 			<artifactId>dellroad-stuff-vaadin</artifactId>
 			<version>1.0.349</version>
+			<scope>provided</scope>
 			<exclusions>	
 				<exclusion>
 					<groupId>org.springframework</groupId>
