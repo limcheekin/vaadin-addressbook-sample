@@ -51,7 +51,7 @@ public class VaadinAddressBookApplication extends SpringContextApplication imple
 
 
 	private void createMainLayout() {
-		// setTheme("contacts");
+		setTheme("contacts");
 		Window mainWindow = new Window("Vaadin Address Book Sample Application");
 		setMainWindow(mainWindow);
 		VerticalLayout layout = new VerticalLayout();
