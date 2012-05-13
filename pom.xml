@@ -27,6 +27,10 @@
 			<url>http://maven.springframework.org/milestone</url>
 		</repository>
 		<repository>
+			<id>jboss-public-repository</id>
+			<url>http://repository.jboss.org/nexus/content/groups/public</url>
+		</repository>					
+		<repository>
 			<id>vaadin-snapshots</id>
 			<url>http://oss.sonatype.org/content/repositories/vaadin-snapshots/</url>
 			<releases>
@@ -35,7 +39,7 @@
 			<snapshots>
 				<enabled>true</enabled>
 			</snapshots>
-		</repository>
+		</repository>	
 		<repository>
 			<id>vaadin-addons</id>
 			<url>http://maven.vaadin.com/vaadin-addons</url>
@@ -280,6 +284,11 @@
 			<artifactId>dellroad-stuff-vaadin</artifactId>
 			<version>1.0.349</version>
 		</dependency>
+		<dependency>
+			<groupId>org.metawidget.modules.vaadin</groupId>
+			<artifactId>metawidget-vaadin</artifactId>
+			<version>2.2-SNAPSHOT</version>
+		</dependency>		
 	</dependencies>
 	<build>
 		<plugins>
