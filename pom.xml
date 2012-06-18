@@ -293,7 +293,12 @@
 			<groupId>org.metawidget.modules.vaadin</groupId>
 			<artifactId>metawidget-vaadin</artifactId>
 			<version>2.3-SNAPSHOT</version>
-		</dependency>		
+		</dependency>
+    <dependency>
+      <groupId>org.hsqldb</groupId>
+      <artifactId>hsqldb</artifactId>
+      <version>2.2.8</version>
+    </dependency>
 	</dependencies>
 	<build>
 		<plugins>
